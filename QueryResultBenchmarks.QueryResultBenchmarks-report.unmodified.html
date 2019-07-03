@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>QueryResultBenchmarks.QueryResultBenchmarks-20190630-110335</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
+Intel Xeon CPU E5-1650 v3 3.50GHz, 1 CPU, 12 logical and 6 physical cores
+.NET Core SDK=3.0.100-preview6-012264
+  [Host]     : .NET Core 3.0.0-preview6-27804-01 (CoreCLR 4.700.19.30373, CoreFX 4.700.19.30308), 64bit RyuJIT
+  DefaultJob : .NET Core 3.0.0-preview6-27804-01 (CoreCLR 4.700.19.30373, CoreFX 4.700.19.30308), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>                                    Method</th><th>  Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>SingleMatchInFirst_Create</td><td>47.84 ns</td><td>0.1241 ns</td><td>0.1161 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInSecond_Create</td><td>47.67 ns</td><td>0.1724 ns</td><td>0.1613 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInEnumerable_Create</td><td>134.70 ns</td><td>0.1896 ns</td><td>0.1773 ns</td><td>0.0076</td><td>-</td><td>-</td><td>48 B</td>
+</tr><tr><td>MultipleMatchesInSlots_Create</td><td>46.65 ns</td><td>0.0810 ns</td><td>0.0758 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>MultipleMatchesInSlotsIncludingEnumerable_Create</td><td>148.62 ns</td><td>0.1878 ns</td><td>0.1568 ns</td><td>0.0062</td><td>-</td><td>-</td><td>40 B</td>
+</tr><tr><td>AppendedSingleMatch_Create</td><td>121.50 ns</td><td>0.0866 ns</td><td>0.0768 ns</td><td>0.0100</td><td>-</td><td>-</td><td>64 B</td>
+</tr><tr><td>AppendedSingleMatchAsEnumerable_Create</td><td>236.73 ns</td><td>0.2779 ns</td><td>0.2600 ns</td><td>0.0191</td><td>-</td><td>-</td><td>120 B</td>
+</tr><tr><td>Append4Matches_Create</td><td>440.30 ns</td><td>1.1652 ns</td><td>1.0900 ns</td><td>0.0701</td><td>-</td><td>-</td><td>440 B</td>
+</tr><tr><td>Append100Matches_Create</td><td>10,132.48 ns</td><td>20.2221 ns</td><td>18.9158 ns</td><td>2.0142</td><td>0.0458</td><td>-</td><td>12728 B</td>
+</tr><tr><td>AggregatorAndAppendedList_Create</td><td>211.38 ns</td><td>0.1473 ns</td><td>0.1378 ns</td><td>0.0420</td><td>-</td><td>-</td><td>264 B</td>
+</tr><tr><td>SingleMatchInFirst_FirstOrDefault</td><td>58.39 ns</td><td>0.4585 ns</td><td>0.4288 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInSecond_FirstOrDefault</td><td>74.55 ns</td><td>0.1296 ns</td><td>0.1212 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInEnumerable_FirstOrDefault</td><td>312.17 ns</td><td>0.9958 ns</td><td>0.8827 ns</td><td>0.0429</td><td>-</td><td>-</td><td>272 B</td>
+</tr><tr><td>MultipleMatchesInSlots_Count</td><td>121.50 ns</td><td>0.0793 ns</td><td>0.0703 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>MultipleMatchesIncludingEnumerable_Count</td><td>828.91 ns</td><td>1.5079 ns</td><td>1.4105 ns</td><td>0.0925</td><td>-</td><td>-</td><td>584 B</td>
+</tr><tr><td>AppendedMatch_Count</td><td>450.59 ns</td><td>0.6205 ns</td><td>0.5804 ns</td><td>0.0505</td><td>-</td><td>-</td><td>320 B</td>
+</tr><tr><td>AppendedMatchAsEnumerable_Count</td><td>522.34 ns</td><td>1.1214 ns</td><td>0.8755 ns</td><td>0.0591</td><td>-</td><td>-</td><td>376 B</td>
+</tr><tr><td>Append4Matches_Count</td><td>1,580.43 ns</td><td>1.9050 ns</td><td>1.7819 ns</td><td>0.1831</td><td>-</td><td>-</td><td>1152 B</td>
+</tr><tr><td>Append100Matches_Count</td><td>45,800.73 ns</td><td>43.0258 ns</td><td>38.1413 ns</td><td>4.0894</td><td>-</td><td>-</td><td>25728 B</td>
+</tr><tr><td>AggregatorAndAppendedList_Count</td><td>1,923.29 ns</td><td>2.1212 ns</td><td>1.7713 ns</td><td>0.1564</td><td>-</td><td>-</td><td>1000 B</td>
+</tr></tbody></table>
+</body>
+</html>
