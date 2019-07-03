@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>QueryResultBenchmarks.QueryResultBenchmarks-20190701-123901</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
+Intel Xeon CPU E5-1650 v3 3.50GHz, 1 CPU, 12 logical and 6 physical cores
+.NET Core SDK=3.0.100-preview6-012264
+  [Host]     : .NET Core 3.0.0-preview6-27804-01 (CoreCLR 4.700.19.30373, CoreFX 4.700.19.30308), 64bit RyuJIT
+  DefaultJob : .NET Core 3.0.0-preview6-27804-01 (CoreCLR 4.700.19.30373, CoreFX 4.700.19.30308), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>                                    Method</th><th>  Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>SingleMatchInFirst_Create</td><td>47.54 ns</td><td>0.4280 ns</td><td>0.4003 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInSecond_Create</td><td>47.86 ns</td><td>0.1560 ns</td><td>0.1460 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInEnumerable_Create</td><td>146.85 ns</td><td>0.3129 ns</td><td>0.2927 ns</td><td>0.0076</td><td>-</td><td>-</td><td>48 B</td>
+</tr><tr><td>MultipleMatchesInSlots_Create</td><td>47.05 ns</td><td>0.0409 ns</td><td>0.0382 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>MultipleMatchesInSlotsIncludingEnumerable_Create</td><td>151.89 ns</td><td>0.7040 ns</td><td>0.6241 ns</td><td>0.0062</td><td>-</td><td>-</td><td>40 B</td>
+</tr><tr><td>AppendedSingleMatch_Create</td><td>146.49 ns</td><td>0.1546 ns</td><td>0.1291 ns</td><td>0.0138</td><td>-</td><td>-</td><td>88 B</td>
+</tr><tr><td>AppendedSingleMatchAsEnumerable_Create</td><td>240.57 ns</td><td>0.3498 ns</td><td>0.3272 ns</td><td>0.0138</td><td>-</td><td>-</td><td>88 B</td>
+</tr><tr><td>Append4Matches_Create</td><td>423.56 ns</td><td>0.5032 ns</td><td>0.3929 ns</td><td>0.0558</td><td>-</td><td>-</td><td>352 B</td>
+</tr><tr><td>Append100Matches_Create</td><td>9,370.05 ns</td><td>28.6475 ns</td><td>25.3953 ns</td><td>1.3885</td><td>0.0153</td><td>-</td><td>8800 B</td>
+</tr><tr><td>AggregatorAndAppendedList_Create</td><td>236.87 ns</td><td>1.1203 ns</td><td>0.9931 ns</td><td>0.0458</td><td>-</td><td>-</td><td>288 B</td>
+</tr><tr><td>SingleMatchInFirst_FirstOrDefault</td><td>56.83 ns</td><td>0.0916 ns</td><td>0.0812 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInSecond_FirstOrDefault</td><td>74.34 ns</td><td>0.2731 ns</td><td>0.2554 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>SingleMatchInEnumerable_FirstOrDefault</td><td>234.13 ns</td><td>0.3268 ns</td><td>0.2551 ns</td><td>0.0267</td><td>-</td><td>-</td><td>168 B</td>
+</tr><tr><td>MultipleMatchesInSlots_Count</td><td>129.02 ns</td><td>0.1828 ns</td><td>0.1710 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>MultipleMatchesIncludingEnumerable_Count</td><td>620.02 ns</td><td>1.9984 ns</td><td>1.7716 ns</td><td>0.0248</td><td>-</td><td>-</td><td>160 B</td>
+</tr><tr><td>AppendedMatch_Count</td><td>196.06 ns</td><td>0.2849 ns</td><td>0.2665 ns</td><td>0.0191</td><td>-</td><td>-</td><td>120 B</td>
+</tr><tr><td>AppendedMatchAsEnumerable_Count</td><td>185.81 ns</td><td>1.7596 ns</td><td>1.6459 ns</td><td>0.0191</td><td>-</td><td>-</td><td>120 B</td>
+</tr><tr><td>Append4Matches_Count</td><td>519.05 ns</td><td>0.6575 ns</td><td>0.6151 ns</td><td>0.0191</td><td>-</td><td>-</td><td>120 B</td>
+</tr><tr><td>Append100Matches_Count</td><td>16,129.11 ns</td><td>170.4177 ns</td><td>159.4089 ns</td><td>-</td><td>-</td><td>-</td><td>120 B</td>
+</tr><tr><td>AggregatorAndAppendedList_Count</td><td>1,210.76 ns</td><td>1.3906 ns</td><td>1.2327 ns</td><td>0.0591</td><td>-</td><td>-</td><td>376 B</td>
+</tr></tbody></table>
+</body>
+</html>
